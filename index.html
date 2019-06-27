@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Visualising physics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ursula Laa" />
+    <link href="libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css/ninjutsu.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: false
+class: split-33 with-thick-border border-black
+
+
+&lt;style type="text/css"&gt;
+/* custom.css */
+:root{
+  --main-color1: #2f4c7a;
+  --main-color2: #bcbddc;
+  --main-color3: #efedf5;
+  --main-color4: #9DDAE5;
+  --text-color3: black;
+  --text-color4: black;
+  --code-inline-color: #4e5054;
+  --link-color: #006CAB;
+}
+.large { font-size: 150% }
+.largeish { font-size: 120% }
+.summarystyle { font-size: 150%;
+  line-height:150%;}
+&lt;/style&gt;
+
+
+
+
+.column[.bottom_abs.content[
+&lt;img src="images/monash-university-logo-transparent.png" width="70%"&gt;
+]]
+
+.column.bg-main1[.content.vmiddle[.center[
+
+
+# Visualising physics
+
+
+### High-dimensional data visualisation for physics applications
+&lt;br&gt;
+&lt;br&gt;
+
+# Ursula Laa
+
+
+### School of Physics and Astronomy
+### &amp;
+### Department of Econometrics and Business Statistics
+
+]]]
+---
+class: split-two
+
+.column[.content[
+# Why visualise data?
+
+&lt;br&gt;
+
+.large[Example: Anscombe's quartet]
+.centre[
+&lt;img src="images/Anscombe.png" width="75%"&gt;
+&lt;br&gt;
+from Wikipedia
+]
+.large[All four datasets have nearly identical simple descriptive statistics (mean, variance, correlation, linear regression line)!]
+
+]]
+
+--
+
+.column[.content.vmiddle[
+
+## Visualisation in physics
+
+.large[
+* analyse, understand and interpret results
+* guide intuition on phenomena beyond direct experience
+* diagnose problems
+* communicate results
+]
+
+
+.large[Effective thanks to our ability to recognize patterns and identify subtle features in images]
+
+&lt;br&gt;
+
+.large[The greatest value of a picture is when it forces us to notice what we never expected to see. (John Tukey)]
+
+
+]]
+
+---
+
+
+# Need for visualisation in high dimensions
+
+&lt;br&gt;
+
+## In physics we often encounter high-dimensional data:
+
+
+* .large[__Measurements__: experimental observations are often multivariate]
+* .large[__Models__: theoretical models typically have multiple free parameters]
+
+&lt;br&gt;
+--
+
+### Typical visualisation methods rely on some form of dimension reduction (projecting, marginalising or profiling), showing either pairs of variables (e.g. "corner plots") or a selection based on prior knowledge
+
+&lt;br&gt;
+--
+
+### Systematic approaches to data visualisation have been developed in statistics, but are rarely used in physics
+
+
+---
+
+class: middle center bg-main1
+
+# Systematic approaches
+
+---
+class: split-two
+.column[.content[
+# Principal component analysis (PCA)
+
+&lt;br&gt;
+
+.large[PCA is an orthogonal linear transformation onto a coordinate system such that the first basis direction is aligned with the maximum variance in the data, the second basis is the direction of maximum variation orthogonal to the first coordinate, and the remaining bases are sequentially computed analogously]
+
+&lt;br&gt;
+--
+
+.large[It can be used for dimension reduction as the first few principal components (PCs) capture most of the information]
+]]
+
+--
+.column[.content.vmiddle[.center[
+&lt;img src="images/pca_example.png" width="75%"&gt;
+]]]
+
+---
+class: split-33 with-border border-black
+
+.column[.content.vmiddle[
+# Principal component analysis in astrophysics
+
+### Example from [arXiv:0610016]
+.large[On "The fundamental properties of galaxies and a new galaxy classification system"]
+]]
+
+
+
+.column[.content.vmiddle[.center[
+.large[Mapping galaxy properties onto principal components]
+&lt;img src="images/pca_example_table.pdf" width="55%"&gt;
+
+&lt;br&gt;
+
+.large[The first three PCs separate galaxies by type]
+&lt;img src="images/pca_example_plots.pdf" width="75%"&gt;
+]]]
+
+
+---
+class: split-three
+.column[.content[
+# Non-linear methods
+
+&lt;br&gt;
+
+.large[
+* typically aim to preserve distance structure in the data, globally or locally
+* the most popular methods include MDS, t-SNE and UMAP
+* used e.g. in bioinformatics, text analysis, machine learning to visualise clustering]
+
+&lt;br&gt;
+
+.large[Example: MNIST dataset]
+.center[
+&lt;img src="images/MnistExamples.png" width="55%"&gt;
+]
+
+]]
+
+--
+
+.column[.content.vmiddle[.center[
+&lt;img src="images/umap_tsne_pca.png" width="65%"&gt;
+&lt;br&gt;
+from [arXiv:1802.03426]
+]]]
+
+--
+
+.column[.content.vmiddle[.center[
+.large[Visualising topology of collider events]
+&lt;br&gt;
+&lt;img src="images/tsne_jets.pdf" width="65%"&gt;
+&lt;br&gt;
+from [arXiv:1902.02346]
+
+&lt;br&gt;
+
+.large[Visualisation of Ising configurations]
+&lt;br&gt;
+&lt;img src="images/tsne_cond_mat.pdf" width="55%"&gt;
+&lt;br&gt;
+from [arXiv:1605.01735]
+
+]]]
+
+---
+class: split-two
+
+.column[.content[
+# Parallel coordinates
+.large[Represent n-dimensional space by n parallel lines, each observation is drawn as line connecting the n vertices with the axes]
+
+.center[
+&lt;img src="images/Parallel_coordinates-sample.png" width="85%"&gt;
+&lt;br&gt;
+from Wikipedia]
+
+.large[__Considerations:__ order and scaling matters, good for identifying patterns, but we can only show n-1 bivariate relations]
+]]
+
+--
+
+.column[.content.vmiddle[
+## Particle physics example
+
+.large[finding patterns in key properties predicted for allowed new physics scenarios]
+
+.center[
+&lt;img src="images/cms_pmssm.pdf" width="85%"&gt;
+&lt;br&gt;
+from [CMS-SUS-15010]]
+
+]]
+
+---
+
+&lt;br&gt;
+
+## PCA is easy to interpret (we can invert the linear projection to understand the results in terms of the original parameters) but is most useful for linear relations
+
+&lt;br&gt;
+
+--
+
+## Non-linear methods capture more structure but may distort distances, shapes and topology and interpretation is limited (we cannot invert the projection)
+
+&lt;br&gt;
+
+--
+
+## Easy to look at multiple dimensions with parallel coordinates, but we lose information
+
+---
+class: middle center bg-main1
+
+# Dynamic projections
+# -
+# Tour algorithm
+
+---
+
+# The Grand Tour
+
+.large[__Idea__: viewing multivariate distributions from different directions by displaying smooth transitions between randomly selected linear projections, to allow extrapolating the multidimensional shape]
+
+&lt;br&gt;
+--
+.large[__Example__: projections of a 3-dimensional wire-frame cube]
+
+.center[
+<video width="450" autoplay>
+        <source src="images/media.io_cube-3.mp4" type="video/mp4">
+      </video>
+]
+
+Example videos taken from [here](http://schloerke.com/geozoo/)
+
+---
+
+# Increasing Dimensionality
+
+&lt;br&gt;
+.large[The tour is not limited to 3-d, for example we can look at the projections of a 4-dimensional wire frame cube]
+
+&lt;br&gt;
+
+.center[
+<video width="450" autoplay>
+        <source src="images/media.io_cube-4.mp4" type="video/mp4">
+      </video>
+]
+
+---
+
+# Increasing Dimensionality
+
+&lt;br&gt;
+.large[Or a seven dimensional one!]
+
+&lt;br&gt;
+
+.center[
+<video width="450" autoplay>
+        <source src="images/media.io_cube-7.mp4" type="video/mp4">
+      </video>
+]
+
+---
+class: middle center bg-main1
+
+# A first view of physics data
+
+
+---
+
+# Visualisation of a 6-parameter fit to B anomalies
+.center[
+&lt;iframe src="images/bFitanim.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+]
+
+.largeish[Described in [arXiv:1811.10793]]
+
+---
+class: middle center bg-main1
+
+# Exploring grouping in high dimensions
+### [arXiv:1806.09742]
+
+---
+# Exploring structure in high dimensions
+
+.large[__Idea__: use tour visualisations for identification and exploration of grouping, to find outlying points and other structure in high dimensional distributions]
+
+&lt;br&gt;
+--
+
+## Example: PDFSense data
+
+.largeish[
+__PDFSense__ [arXiv:1803.02777] aims to study the sensitivity of hadronic experiments to nucleon structure, encoded in "fit residuals" (defining a 56 dimensional parameter space)
+]
+
+.largeish[__Objective__: by studying the fit residuals we learn about
+* grouping: show how different types of measurements constrain different directions in parameter space
+* relevance to the fit: the residuals encode the sensitivity of the fit to single measurements, so finding observables that are different from the main distribution (i.e. all the other measurements) means finding those which are expected to be important in future fits
+
+
+Visualisation is a great way of addressing these questions!
+
+]
+---
+# A first attempt at visualisation
+
+.large[In [arXiv:1803.02777] the authors use PCA and t-SNE for the visualisation of the dataset.]
+--
+.center[&lt;img src="images/pdfsense.pdf" width="85%"&gt;]
+--
+.large[This already shows grouping and interesting structure, let's see what else we can learn when looking at it in the grand tour!]
+
+---
+
+# Preparing the visualisation
+
+&lt;div style="line-height:50%;"&gt;
+    &lt;br&gt;
+&lt;/div&gt;
+
+### Data preparation
+
+.large[
+* First step: simple data preprocessing, i.e. centring each parameter direction, or additionally sphering each observation to have length 1 in the full parameter space
+* We next reduce the dimensionality from 56 to 6 first principal components (this corresponds to about 50% of overall variance in the data)
+* Rescale each principal component to range [0,1] to give equal optical weights to all principal directions
+]
+
+### Grouping according to type of experiment
+.large[
+* As considered in the original PDFSense paper, there are three groups of experiments that we can distinguish in the visualisation
+* In addition, when considering only one of the groups, we can apply a finer grouping allowing to pinpoint e.g. where outliers occur
+]
+
+---
+# Reproducing the PCA view in a dynamic tour display
+
+&lt;br&gt;
+
+&lt;img src="gifs/allsphere.gif" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+--
+.large[This is sphered data, which is producing artefacts in the views and removes the relevant length information.]
+---
+
+# A tour display without sphering
+
+&lt;br&gt;
+
+.large[A much clearer picture is found when looking at the centred (rather than sphered) data.]
+
+&lt;br&gt;
+
+--
+&lt;img src="gifs/allcenter.gif" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
+
+---
+layout: false
+class: split-33 with-border border-black
+
+.column[.content.vmiddle[
+# Going into details - The jets cluster
+
+&lt;br&gt;
+
+.large[Focusing on one group, we can for example compare in detail the distributions obtained for different experiments, visually identify outlying points]
+]]
+
+.column[.content.vmiddle[.center[
+&lt;img src="gifs/jetCluster.gif" width="70%" height="70%" style="display: block; margin: auto;" /&gt;
+]]]
+
+---
+
+
+&lt;br&gt;
+
+
+
+## The tour gives a more comprehensive picture of the multidimensional distribution, showing a more refined view of the grouping and allowing visual detection of multivariate outliers
+
+&lt;br&gt;
+--
+
+## Visual analysis allows a better understanding of the method itself and can uncover unexpected features, and even possibly errors
+
+&lt;br&gt;
+--
+
+## As dimensionality increases (or feature size becomes small) we may want to steer the tour towards more interesting views of the data
+
+---
+
+class: middle center bg-main1
+
+# Projection pursuit
+### [arXiv:1902.00181]
+---
+
+class: split-60
+
+.column[.content[
+# Projection pursuit
+
+&lt;br&gt;
+
+.large[__Idea__: find interesting low-dimensional projections of high-dimensional data by optimizing an index over all possible projections]
+
+&lt;br&gt;
+
+.large[We can combine the idea of projection pursuit with the grand tour, this is called a guided tour and will move towards more interesting views of the data by increasing the index for each step]
+
+&lt;br&gt;
+
+.large[But how can we define interesting? Typical index functions aim to detect departure from known distributions (in particular normal distributions), or clustering. What about complex bivariate patterns?]
+]]
+--
+
+.column[.content.vmiddle[.center[
+&lt;img src="images/data-1.pdf" width="75%"&gt;
+]]]
+
+
+---
+class: split-three
+
+.column[.content[
+# Index functions considered
+
+&lt;br&gt;
+
+.largeish[We consider index functions developed for variable selection in large datasets]
+
+.largeish[
+* __scagnostics__: scatterplot diagnostics, based on graph-theoretic measures (using convex hull, alpha hull, minimal spanning tree)
+* __association measures__: for example fitting a spline model and comparing the variance in the residuals
+* __information__: mutual information measures how much one variable tells us about another, we can use the maximum information coefficient (MIC) as an index
+]
+]]
+
+--
+.column[.content.vmiddle[.center[
+.large[Scagnostics measures]
+&lt;img src="images/scagnostics.pdf" width="65%"&gt;
+&lt;br&gt;
+from [Wilkinson, Anand, Grossman (2005)]
+]]]
+
+--
+
+.column[.content.vmiddle[.center[
+
+
+.large[Smoothing splines]
+&lt;br&gt;
+&lt;img src="images/spline.png" width="65%"&gt;
+&lt;br&gt;
+example from scipy
+
+&lt;br&gt;
+
+.large[MIC]
+&lt;br&gt;
+&lt;img src="images/mic.pdf" width="65%"&gt;
+&lt;br&gt;
+from [Reshef et al. (2012)]
+]]]
+
+
+---
+class: split-two
+
+.column[.content.vmiddle[
+# Criteria for good index functions
+
+&lt;br&gt;
+
+.largeish[
+* __smoothness__: index values vary smoothly over interpolated tour paths
+* __squintability__: how far from the ideal view structure is visible
+* __flexibility__: ability to detect a range of structures
+* __rotation invariance__: orientation should not affect the index value
+* __speed__: index needs to be evaluated many times during optimisation
+
+&lt;br&gt;
+
+### Rating of considered index functions
+.center[&lt;img src="images/index_rating.pdf" width="85%"&gt;]
+
+]
+]]
+
+--
+.column[.content[
+## Tracing index functions from nuisance to structured views
+.center[&lt;img src="images/wIntermediate-1.pdf" width="75%"&gt;]
+]]
+
+---
+class: split-two
+
+.column[.content[
+# Looking at posterior samples from LIGO describing GW170817
+
+&lt;br&gt;
+
+.center[&lt;img src="images/neutronStarSPLOM-1.pdf" width="75%"&gt;
+]]]
+
+--
+.column[.content.vmiddle[
+### Optimising the spline index over all projections (with m2 removed) we can find parameter combinations with strong functional dependence
+
+&lt;br&gt;
+
+.center[&lt;img src="images/nsePlotOrig-1.pdf" width="75%"&gt;]
+
+&lt;br&gt;
+
+### Remove L1 and repeat
+
+.center[&lt;img src="images/nseRemL1-1.pdf" width="75%"&gt;]
+
+]]
+
+---
+# Guided tour example
+
+.large[Considering 11-d posterior sample fitting a simulated gravitational wave signal, using the guided tour and optimising the TIC index to move towards more structured views of the distribution]
+
+.center[
+&lt;iframe src="images/BBH.html" width="800" height="500" scrolling="yes" seamless="seamless" frameBorder="0"&gt; &lt;/iframe&gt;
+]
+
+
+---
+class: split-two
+
+.column[.content[
+# Projection pursuit on grouped data
+
+&lt;br&gt;
+
+.large[We can also use projection pursuit to understand how groups in a dataset differ in a multidimensional parameter space]
+
+&lt;br&gt;
+
+.large[For example searching for projections that separates parameter regions by quality of the fit to experimental data]
+
+&lt;br&gt;
+
+.large[Work in progress (by Cristian Sierra): comparing predictions from a 2HDM to EFT fits to the B anomalies, trying to separate points within 1 &amp;sigma; of the best fit (red) from other sample points (black)]
+
+
+]]
+
+.column[.content.center.vmiddle[
+<video width="450" autoplay>
+        <source src="gifs/diagonalzero-11969.mov" type="video/mp4">
+      </video>
+]]
+
+---
+
+&lt;br&gt;
+
+### Projection pursuit and the guided tour allow us to uncover interesting views, for example looking for structure in combinations of variables in posterior distributions
+
+&lt;br&gt;
+--
+
+### None of the considered index functions meets all criteria, and we may want to desing new functions to solve specific problems (e.g. finding projections with minimum overlap between two groups)
+
+&lt;br&gt;
+--
+
+### Better optimisation methods are required especially when increasing dimensionality
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+--
+
+.center[
+## How can you use these methods to look at your data?
+]
+
+---
+
+
+class: middle center bg-main1
+# The galahr package
+
+### https://uschilaa.github.io/galahr/
+---
+
+# galahr demo
+
+
+.center[
+<video width="1000" autoplay>
+        <source src="gifs/demo.mp4" type="video/mp4">
+      </video>
+]
+---
+class: bg-main1
+# Summary
+
+.large[&amp;#9655; Dimension reduction is common when making visualisations of physics data, and is typically based on prior knowledge (or exploration)]
+
+
+--
+
+
+.large[&amp;#9655; Systematic approaches exist and should be used]
+
+
+--
+
+
+.large[&amp;#9655; The tour allows us to visualise distributions in more than two dimensions, providing new insights and better understanding]
+
+--
+
+
+.large[&amp;#9655; Projection pursuit may be used to extract relations between linear combinations of parameters]
+
+--
+
+
+.large[&amp;#9655; You can easily do this using the galahr R package!]
+
+--
+
+
+.large[&amp;#9655; Sometimes projections are not sufficient to show the full information, e.g. hollow vs full sphere, we should think about systematic approaches to slicing as well]
+
+---
+class: bg-main1
+
+#Thanks!
+
+
+.large[This work was done in collaboration with Dianne Cook and German Valencia.]
+
+.large[Special thanks to Rory Smith for providing interesting examples!]
+
+.large[These slides are made with R markdown using xaringan and the Kunoichi theme.]
+
+******
+
+# References:
+
+.large[
+Using tours to visually investigate properties of new projection pursuit indexes with application to problems in physics, U. Laa and D. Cook, arXiv:1902.00181, in revision
+]
+
+.large[Anatomy of a six-parameter fit to the  b → s l&lt;sup&gt;+&lt;/sup&gt; l&lt;sup&gt;-&lt;/sup&gt;  anomalies, B. Capdevila, U. Laa and G. Valencia, arXiv:1811.10793, Eur.Phys.J. C __79__,  no.6, 462 (2019)]
+
+.large[Dynamical projections for the visualization of PDFSense data, D. Cook, U. Laa and G. Valencia, arXiv:1806.09742, Eur. Phys. J. C __78__, no. 9, 742 (2018)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="./libs/jquery/jquery.min.js"></script>
+<script src="./libs/slides.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"ratio": "16:9",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
